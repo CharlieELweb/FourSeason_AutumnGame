@@ -19,21 +19,27 @@ public class Press : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.D) && !isBacking)
         {
-            transform.DOMoveY(0, 0.2f);
-        }
-        if(Input.GetKeyUp(KeyCode.D) && !isBacking)
-        {
             isBacking = true;
-            transform.DOMoveY(10f, 1f)
+            transform.DOMoveY(0f, 0.2f)
+                .SetEase(Ease.InSine)
                 .OnComplete(() => {
-                    isBacking = false;
+                    transform.DOMoveY(10f, 1f)
+                        .OnComplete(() =>
+                        {
+                            isBacking = false;
+                        });
+                    
                 });
         }
     }
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("HIT");
-        Destroy(other.gameObject);
-        Instantiate(wineParticle, transform.position + 2 * Vector3.down, transform.rotation);
+        if(other.gameObject.tag == "grape")
+        {
+            Debug.Log("HIT");
+            Destroy(other.gameObject);
+            Instantiate(wineParticle, transform.position + 5 * Vector3.down, transform.rotation);
+        }
+        
     }
 }

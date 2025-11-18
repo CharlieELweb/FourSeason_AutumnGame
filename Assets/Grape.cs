@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Grape : MonoBehaviour
 {
-    [SerializeField] float movingSpeed = 5f;
+    public float movingSpeed = 5f;
     // Start is called before the first frame update
     void Start()
     {
