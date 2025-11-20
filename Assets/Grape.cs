@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Grape : MonoBehaviour
 {
-    public float movingSpeed = 5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +15,6 @@ public class Grape : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += movingSpeed * Vector3.right * Time.deltaTime;
+        transform.position += GameManager.Instance.movingSpeed * Vector3.right * Time.deltaTime;
     }
 }

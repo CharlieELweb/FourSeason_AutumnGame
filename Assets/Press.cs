@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Press : MonoBehaviour
 {
-    [SerializeField] private GameObject wineParticle;
+    [SerializeField] private GameObject wineParticle, dustParticle;
     bool isBacking = false;
     // Start is called before the first frame update
     void Start()
@@ -17,12 +17,13 @@ public class Press : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.D) && !isBacking)
+        if(Input.GetKeyDown(KeyCode.D) && !isBacking && !GameManager.Instance.gameEnd)
         {
             isBacking = true;
             transform.DOMoveY(0f, 0.2f)
                 .SetEase(Ease.InSine)
                 .OnComplete(() => {
+                    Instantiate(dustParticle, transform.position + 2 * Vector3.down, Quaternion.Euler(-90, 0, 0));
                     transform.DOMoveY(10f, 1f)
                         .OnComplete(() =>
                         {
@@ -39,6 +40,7 @@ public class Press : MonoBehaviour
             Debug.Log("HIT");
             Destroy(other.gameObject);
             Instantiate(wineParticle, transform.position + 5 * Vector3.down, transform.rotation);
+            GameManager.Instance.grapeSuccess++;
         }
         
     }
